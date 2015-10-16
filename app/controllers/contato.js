@@ -1,5 +1,5 @@
 
-var contatos = [
+var listcontatos = [
   { _id: 1, nome: 'Contato Exeplo 1', email: 'cont1@empresa.com.br  ' },
   { _id: 2, nome: 'Contato Exeplo 2', email: 'cont2@empresa.com.br  ' },
   { _id: 3, nome: 'Contato Exeplo 3', email: 'cont3@empresa.com.br  ' },
@@ -8,13 +8,21 @@ var contatos = [
 
 ];
 
+module.exports = function(app) {
 
-module.exports = function() {
+  var Contato = app.models.contato;
 
   var controller = {};
 
+
   controller.listaContatos = function(req, res) {
-      res.json(contatos);
+      Contato.find().exec().then(function(contatos) {
+        res.json(contatos);
+      }, function(erro){
+        console.error(erro);
+        res.status(500).json(erro);
+      });
+
   };
 
   controller.obtemContato = function(req, res) {
@@ -32,7 +40,7 @@ module.exports = function() {
 function findContato(req, res) {
 
   var id = req.params.id;
-  var contato = contatos.filter(function(contato){
+  var contato = listcontatos.filter(function(contato){
     return contato._id == id;
   })[0];
 
