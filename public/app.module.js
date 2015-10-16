@@ -1,7 +1,12 @@
-angular.module('amigosecreto',['ngRoute'])
-  .config(function($routeProvider){
+angular
+  .module('amigosecreto')
+  .config(configure);
 
-    $routeProvider.when('/contatos', {
+configure.$inject = ['ngRoute','ngResource'];
+
+function configure($routeProvider){
+
+  $routeProvider.when('/contatos', {
       templateUrl: 'partials/contatos.html',
       controller: 'contatosController'
     });
@@ -12,7 +17,7 @@ angular.module('amigosecreto',['ngRoute'])
       controllerAs: 'vm'
     });
 
-    $routeProvider.otherwise({redirectTo: "/contatos"});
+    $routeProvider.otherwise({redirectTo: '/contatos'});
 
 
-});
+}

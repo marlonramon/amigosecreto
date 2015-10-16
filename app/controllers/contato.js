@@ -18,16 +18,29 @@ module.exports = function() {
   };
 
   controller.obtemContato = function(req, res) {
-      var id = req.params.id;
-      var contato = contatos.filter(function(contato){
-        return contato._id == id;
-      })[0];
+      return findContato(req, res);
+  };
 
-      contato ? res.json(contato) : res.status(404).send('Contato nao encontrado');
-
-
+  controller.removerContato = function(req, res) {
+    console.log('teste');
   };
 
   return controller;
 
 };
+
+function findContato(req, res) {
+
+  var id = req.params.id;
+  var contato = contatos.filter(function(contato){
+    return contato._id == id;
+  })[0];
+
+  if (contato) {
+    res.json(contato);
+  } else {
+    res.status(404).send('Contato nao encontrado');
+  }
+
+
+}
